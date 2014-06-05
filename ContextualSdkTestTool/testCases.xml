@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="testCases.xsl"?>
+
+<test sdkType = "Aro Contextual">
+    
+   
+ 	<testSuite name="ContextSdk" >
+
+    	<testCase id="100" sdk="ContextSdk:ContextSdk" name="Correct app Id and Server URL" type="BVT">
+    	    <parameter name="applicationId">fee8baf337283e5ba320a836c16dd80a</parameter>
+    	    <parameter name="serverURL">https://lifestream-dev0.aro.com</parameter>    	    
+    	    <expected>SDK Context Created</expected> 
+    	</testCase>
+    	   	
+       	<testCase id="102" sdk="ContextSdk:ContextSdk" name="Good appID and Wrong ServerURL" type="BVTa">
+    	    <parameter name="applicationId">fee8baf337283e5ba320a836c16dd80a</parameter>
+    	    <parameter name="serverURL">http://lifestream-dev0.aro.com</parameter>    	    
+    	    <expected>Invalid serverUrl passed to ContextSdk</expected> 
+    	</testCase>   	   		
+    
+       <testCase id="104" sdk="ContextSdk:isUserCreated" name="Call isUserCreated before creating a user." type="Smoke">   	    
+    	    <expected>false</expected>  
+    	</testCase> 	
+ 
+   <!--     	    	
+     	<testCase id="106" sdk="ContextSdk:getDeviceId" name="Get Device Id called Before Create User" type="BVT">   	    
+    	    <expected>Device not Found</expected>
+    	</testCase>
+     -->	
+     	<testCase id="108" sdk="ContextSdk:createUser" name="Create User" type="Smoke">   	    
+    	    <expected>onUserCreatedSuccess</expected>  
+    	</testCase>     	
+     		
+        <testCase id="110" sdk="ContextSdk:isUserCreated" name="isUserCreated Called After Create User" type="Smoke">   	    
+    	    <expected>true</expected>	  
+    	</testCase> 	
+    <!--	
+       	<testCase id="112" sdk="ContextSdk:getDeviceId" name="getDeviceId Called After Create User" type="BVT">   	    
+    	    <expected>e446b7c7-cc0e-495f-84da-b83ea9a31787</expected>
+    	</testCase>      
+      			    
+        <testCase id="114" sdk="ContextSdk:getCurrentLocation" name="getCurrentLocation" type="BVT">
+    	    <parameter name="noParameters">DoesNotTakeParameters</parameter>  	    
+    	    <expected>47.59</expected> 
+    	    <expected>-122.32</expected> 
+    	</testCase>        	
+      --> 	
+        <testCase id="116" sdk="ContextSdk:getCurrentMovement" name="getCurrentMovement parameter set to True" type="BVT">
+    	    <parameter name="fast">true</parameter>  	    
+    	    <expected>STILL</expected> 
+    	</testCase> 
+    	
+        <testCase id="118" sdk="ContextSdk:getCurrentMovement" name="getCurrentMovement parameter set to False" type="BVT">
+    	    <parameter name="fast">false</parameter>  	    
+    	    <expected>STILL</expected> 
+    	</testCase>         	
+ <!--
+         <testCase id="120" sdk="ContextSdk:sendCompressed" name="Send Compressed data" type="BVTa"> 	
+             <parameter name="fast"> <![CDATA[[{"type":"Location","location":"geo:47.59507995257869,-122.33173370361328,0.0;u=10.0;tz=America%2FLos_Angeles;source=network;test=jngeee","accuracyMeters":10,"bearingDegrees":89.2,"speedMetersPerSecond":0.1,"timeObserved":"2014-04-13T18:00:00.997Z","timeZone":"America/Los_Angeles"},{"type":"WiFi","scanResults":[{"BSSID":"f4e1111126a651181a042470773c8ba7b88f95c7","SSID":"ecbf034d05660c25ca38a328d10a55c8ae916e0c","capabilities":"[WPA-PSK-TKIP][ESS]","frequency":2412,"level":-69}],"timeObserved":"2014-04-13T18:00:00.997Z","timeZone":"America/Los_Angeles"}]]]></parameter>     
+    	    <expected>??</expected> 
+    	</testCase>  
+   -->  	
+        <testCase id="130" sdk="ContextSdk:startCollector" name="startCollector" type="BVTa"> 	     
+    	    <expected>startCollector</expected> 
+    	</testCase> 
+    	
+        <testCase id="132" sdk="ContextSdk:stopCollector" name="stopCollector" type="BVTa"> 	     
+    	    <expected>stopCollector</expected> 
+    	</testCase> 
+    	
+  
+	</testSuite>     
+    
+     
+    
+ 
+ 	
+ 	<testSuite name="Person">
+ 	    
+         <testCase id="140" sdk="Person:getMe" name="Good parameters" type="Smoke">
+    	    <parameter name="fast">true</parameter>  	    
+    	    <expected>"createdAt":"2014</expected> 
+    	</testCase>	    
+    	
+         <testCase id="142" sdk="Person:getPerson" name="Good parameters" type="Smoke">
+    	    <expected>"createdAt":"2014</expected> 
+    	</testCase>	    
+    	
+         <testCase id="143" sdk="Person:getPerson" name="Non existing person Id" type="Smoke">
+    	    <parameter name="id">DOES_NOT_EXIST-4c87-acef-2647edb66132</parameter>  	    
+    	    <expected>WebException 401</expected> 
+    	</testCase>	         
+         
+          <testCase id="144" sdk="Person:getPeople" name="Get Multiple persons" type="Smoke">
+    	    <expected>"createdAt":"2014</expected> 
+    	</testCase>	   
+    	
+          <testCase id="145" sdk="Person:getPeople" name="Get Multiple persons" type="Smoke">
+    	    <parameter name="id">DOES_NOT-EXIST-acef-2647edb66132</parameter>  	    
+    	    <expected>{ "people": [ ] }</expected> 
+    	</testCase>	          
+         
+         	
+ 	</testSuite> 
+ 	
+ 	<testSuite name="CategoryBuilder">
+ 	    
+      	<testCase id="150" sdk="Category:Execute" name="Good category Id" type="Smoke">     
+    	    <parameter name="no params">No parameters Needed</parameter>
+    	    <expected>Restaurant</expected>
+    	    <expected>University</expected>
+    	    <expected>Service</expected>
+    	</testCase> 	    
+ 	    
+    
+    	<testCase id="152" sdk="Category:ById" name="Good category Id" type="Smoke">     
+    	    <parameter name="id">107</parameter>
+    	    <expected>107</expected>
+    	    <expected>Mexican</expected>
+    	    <expected>Food</expected>
+    	</testCase>
+    	
+    	
+    	<testCase id="154" sdk="Category:ById" name="Inexistent category Id" type="BVT">     
+    	    <parameter name="id">181818</parameter>
+    	    <expected>WebException 404</expected>
+    	</testCase>
+    	   	
+    
+      	<testCase id="156" sdk="Category:ByIds" name="Good categories Ids" type="Smoke">     
+    	    <parameter name="id">37</parameter>
+    	    <parameter name="id">39</parameter>
+    	    <expected>College Gym</expected>
+    	    <expected>College Classroom</expected>
+    	</testCase>
+    	
+       	<testCase id="158" sdk="Category:ByIds" name="Inexistent categories Ids" type="BVT">     
+    	    <parameter name="id">181818</parameter>
+    	    <parameter name="id">1818182</parameter>
+    	    <expected>{ "categories": [ ] }</expected>
+    	</testCase>     	
+    	
+        <testCase id="160" sdk="Category:ByIds" name="One good, one inexistent category" type="BVT">     
+    	    <parameter name="id">107</parameter>
+    	    <parameter name="id">181818</parameter>
+    	    <expected>"categories": [ {"id":"107"</expected>
+    	</testCase>   
+    	
+        
+       <testCase id="170" sdk="Category:ByName" name="Get existing category by Name" type="Smoke">     
+    	    <parameter name="name">Stadium</parameter>
+    	    <expected>27</expected>
+    	    <expected>Stadium</expected>
+    	    <expected>Stadiums</expected>
+    	</testCase>          	
+       	 	
+       <testCase id="172" sdk="Category:ByName" name="Get Inexistent category by Name" type="BVT">     
+    	    <parameter name="name">Inexistent_Category_Name</parameter>
+    	    <expected>WebException 404</expected>
+    	</testCase> 
+    	
+        <testCase id="174" sdk="Category:ByName" name="Get Inexistent category by Name" type="Functional">     
+    	    <parameter name="name">12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890</parameter>
+    	    <expected>WebException 404</expected>
+    	</testCase>  
+       
+	</testSuite>      	
+	
+ 	
+ 	
+ 	<testSuite name="Category">   	   	    	
+
+     	<testCase id="180" sdk="Category:getCategoryById" name="Get Category by Id" type="Smoke">   
+    	    <parameter name="id">107</parameter>
+    	    <expected>107</expected>
+    	    <expected>Mexican</expected>
+    	    <expected>Food</expected>											   
+    	</testCase>  
+    	  	
+    	<testCase id="182" sdk="Category:getCategoriesByIds" name="Get Categories by Ids" type="Smoke">   
+    	    <parameter name="id">37</parameter>
+    	    <parameter name="id">39</parameter>
+    	     <parameter name="id">1</parameter>
+    	    <expected>College Gym</expected>
+    	    <expected>College Classroom</expected>								   
+    	</testCase>  
+    	
+    	<testCase id="184" sdk="Category:getCategoriesByIds" name="One valid and One invalid Id" type="Smoke">   
+    	    <parameter name="id">107</parameter>
+    	    <parameter name="id">181818</parameter>
+    	    <expected>Food</expected>
+    	    <expected>Mexican</expected>									   
+    	</testCase>    	
+    	
+	</testSuite>		
+ 	
+	<testSuite name="Observation">
+	    
+   		<testCase id="200" sdk="Observation:buildUserHistory" name="Creates 4 days of Activities. CenturyLink Field, SafecoField, Pyramid, SBUX, SEA-TAC." type="Smoke">       	    
+  	    	<parameter name="intervalMinutes">3</parameter>
+    	    <parameter name="observationTotal">6</parameter>
+    	    <parameter name="hourOnTheDay">20</parameter>  
+    	    <parameter name="daysBack">5</parameter> 
+    	    <expected>OK</expected>											   
+    	</testCase>		    
+<!-- 	    
+  		<testCase id="202" sdk="Observation:RequestObservation" name="Get user's observations." type="Smoke">       	    
+  	    	<parameter name="intervalMinutes">3</parameter>
+    	    <parameter name="observationTotal">6</parameter>
+    	    <expected>OK</expected>											   
+    	</testCase>		    	
+
+  		<testCase id="204" sdk="Observation:getById" name="Get Observation by Id." type="Smoke">       	    
+  	    	<parameter name="id">3</parameter>
+    	    <expected>OK</expected>											   
+    	</testCase>		    	
+   
+  		<testCase id="206" sdk="Observation:getByIds" name="Get Observations by Ids." type="Smoke">       	    
+  	    	<parameter name="id">3</parameter>
+    	    <parameter name="id">6</parameter>
+    	    <expected>OK</expected>											   
+    	</testCase>		    	 	   		
+  --> 		
+    			    
+	</testSuite>	
+ 	
+	<testSuite name="Place Builder">
+    
+    	<testCase id="300" sdk="PlaceBuilder:placeRequest" name="Good lat and long." type="Smoke">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter> 
+    	    <parameter name="limit">100</parameter> 
+    	    <expected>CenturyLink Field</expected>
+    	    <expected>CenturyField Events Center</expected>
+    	    <expected>Game House</expected>
+    	</testCase>
+
+    	<testCase id="302" sdk="PlaceBuilder:placeRequest" name="Small Radius" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>
+    	    <parameter name="radius">5</parameter> 	    
+    	    <expected>CenturyLink Field</expected>
+      	    <expected>Cadillac Reserve Club</expected>
+    	    <expected>Seattle Seahawks</expected>
+    	</testCase> 
+    	
+    	<testCase id="304" sdk="PlaceBuilder:placeRequest" name="Big Radius" type="Functional">     
+    	    <parameter name="latitude">47.62063</parameter>
+    	    <parameter name="longitude">-122.34924</parameter>
+    	    <parameter name="radius">2000</parameter>  
+    	    <expected>"id"</expected>	    
+     	    <expected>"name":</expected>
+    	    <expected>"recentMinutes"</expected>
+    	</testCase>    
+    	
+    	<testCase id="306" sdk="PlaceBuilder:placeRequest" name="Big Radius, small limit = 2" type="BVT">     
+    	    <parameter name="latitude">47.62063</parameter>
+    	    <parameter name="longitude">-122.34924</parameter>
+    	    <parameter name="radius">500</parameter>
+    	    <parameter name="limit">2</parameter>
+    	    <expected>Space Needle</expected>    	    
+       	    <expected>Space Needle: Observation Deck</expected>
+    	</testCase>         			
+    
+    	
+    	<testCase id="308" sdk="PlaceBuilder:placeRequest" name="Radius upper limit + 1" type="BVT">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">2001</parameter>
+    	    <parameter name="limit">2</parameter>
+    	    <expected>setRadius must be 1 to 2000</expected>
+    	</testCase>
+    	
+    	
+      	<testCase id="310" sdk="PlaceBuilder:placeRequest" name="Invalid big Radius" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">999999</parameter>
+    	    <parameter name="limit">2</parameter>
+    	    <expected>setRadius must be 1 to 2000</expected>
+    	</testCase>  	
+    	
+    	<testCase id="312" sdk="PlaceBuilder:placeRequest" name="Invalid very big Radius" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">9999999999</parameter>
+    	    <expected>Invalid int: "9999999999"</expected>
+    	</testCase>    	
+    
+       	<testCase id="314" sdk="PlaceBuilder:placeRequest" name="Invalid negative Radius" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">-1</parameter>
+    	    <parameter name="limit">2</parameter>
+    	    <expected>setRadius must be 1 to 2000</expected>
+    	</testCase>     	
+
+        <testCase id="316" sdk="PlaceBuilder:placeRequest" name="Max result number = 0" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">2000</parameter>
+    	    <parameter name="limit">0</parameter>
+    	    <expected>setLimit must be 1 to 100</expected>
+    	</testCase>        	
+       	
+        <testCase id="318" sdk="PlaceBuilder:placeRequest" name="Invalid negative max number of results" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">2000</parameter>
+    	    <parameter name="limit">-1</parameter>
+    	    <expected>setLimit must be 1 to 100</expected>
+    	</testCase>       	
+  
+        <testCase id="320" sdk="PlaceBuilder:placeRequest" name="Max result number + 1" type="Functional">     
+    	    <parameter name="latitude">47.5956569</parameter>
+    	    <parameter name="longitude">-122.3309575</parameter>  
+    	    <parameter name="radius">2000</parameter>
+    	    <parameter name="limit">101</parameter>
+    	    <expected>setLimit must be 1 to 100</expected>
+    	</testCase>  			
+    	
+        
+      	<testCase id="330" sdk="PlaceBuilder:Frequent" name="Get user's All frecuent places." type="Smoke">         	 
+    	    <parameter name="All_frequent">true</parameter>    	    
+    	    <expected>CenturyLink Field</expected>
+    	    <expected>Diamond Club</expected>
+    	</testCase>         			  		
+    	
+      	
+        <testCase id="332" sdk="PlaceBuilder:Frequent" name="Get Favorites. geo CenturyLink Field." type="Smoke">
+    	    <parameter name="latitude">47.59561</parameter>
+    	    <parameter name="longitude">-122.33091</parameter>                     	 
+    	    <expected>CenturyLink Field</expected>
+    	</testCase>      	
+      	
+        
+        <testCase id="334" sdk="PlaceBuilder:Frequent" name="Get Favorites. geo CenturyLink Field. Big Radius should include more places." type="Functional">
+    	    <parameter name="latitude">47.59561</parameter>
+    	    <parameter name="longitude">-122.33091</parameter>
+    	    <parameter name="radius">2000</parameter>                     	     	  
+    	    <expected>CenturyLink Field</expected>
+    	    <expected>Diamond Club</expected>
+    	</testCase>       	        
+        
+        
+      	<testCase id="340" sdk="PlaceBuilder:SavePlace" name="Save a custom Place." type="Smoke">         	 
+    	    <parameter name="place"><![CDATA[ {"totalMinutes":120,"webUrl":"http://www.aro.com","phone":"(425) 1818-1818","alias":"Frecuent Set to False","location":"geo:47.591801,-122.331801","links":[{"href":"https://lifestream-dev0.aro.com/v1/places/866f688d-adbc-412e-9169-87ba93864a93","rel":"self"},{"href":"","rel":"image"}],"id":"796f3756-5e87-4297-91bd-938414bb40b3","favoritedAt":null,"totalStays":18,"address":{"neighborhood":"QA NEIGHBORHOOD","stateProvince":"WA","postalCode":"98104","city":"Seattle","country":"US","street":"1818 QAst Ave S"},"name":"QA CREATED PLACE","lastVisited":null,"roles":[],"recentStays":5,"recentMinutes":60,"public":true} ]]></parameter>    	    
+    	    <parameter name="favorite">false</parameter>    	  
+    	    <expected>QA CREATED PLACE</expected>
+    	    <expected>Frecuent Set to False</expected>
+    	</testCase>
+    	
+      	
+      	<testCase id="342" sdk="PlaceBuilder:SavePlace" name="Save a custom Place. Set as Favorite." type="Smoke">
+    	    <parameter name="place"><![CDATA[ {"alias":"Frecuent Set to True","totalMinutes":120,"webUrl":"http://www.aro.com","phone":"(425) 1818-1818","location":"geo:47.591801,-122.331801","links":[{"href":"https://lifestream-dev0.aro.com/v1/places/866f688d-adbc-412e-9169-87ba93864a93","rel":"self"},{"href":"","rel":"image"}],"id":"796f3756-5e87-4297-91bd-938414bb40b3","favoritedAt":null,"totalStays":18,"address":{"neighborhood":"QA NEIGHBORHOOD","stateProvince":"WA","postalCode":"98104","city":"Seattle","country":"US","street":"1818 QAst Ave S"},"name":"QA CREATED PLACE","lastVisited":null,"roles":[],"recentStays":5,"recentMinutes":60,"public":true} ]]></parameter>
+    	    <parameter name="favorite">true</parameter>        	             	 
+    	    <expected>QA CREATED PLACE</expected>
+    	    <expected>Frecuent Set to True</expected>
+    	</testCase> 
+    	
+      	
+        <testCase id="350" sdk="PlaceBuilder:Favorite" name="Return ALL favorited places. SetAllFavorites." type="Smoke">
+    	    <parameter name="latitude">47.59561</parameter>
+    	    <parameter name="longitude">-122.33091</parameter> 
+    	    <parameter name="All_Favorite">true</parameter>                   	     	  
+    	    <expected>796f3756-5e87-4297-91bd-938414bb40b3</expected>
+    	    <expected>"favoritedAt":"2014</expected>
+    	</testCase>          					  		      	
+    		    
+        
+        <testCase id="352" sdk="PlaceBuilder:Favorite" name="Return One favorited place. SetFavorite." type="Smoke">
+    	    <parameter name="latitude">47.59561</parameter>
+    	    <parameter name="longitude">-122.33091</parameter>
+    	    <parameter name="radius">2000</parameter>  
+    	    <parameter name="Favorite">true</parameter>                   	     	  
+    	    <expected>796f3756-5e87-4297-91bd-938414bb40b3</expected>
+    	    <expected>"favoritedAt":"2014</expected>
+    	</testCase>     
+    	
+       <testCase id="356" sdk="PlaceBuilder:Recent" name="Get recent visited places (7 days)." type="Functional">
+    	    <parameter name="recent">true</parameter>
+    	    <expected>Diamond Club</expected>
+    	    <expected>Seattle-Tacoma International Airport (SEA)</expected>
+    	</testCase>        
+      
+      	<testCase id="360" sdk="PlaceBuilder:getByIds" name="Get Multiple places by Id" type="Smoke">     
+    	    <parameter name="id">auto</parameter>  	    
+    	     <expected>CenturyLink Field</expected>
+    	</testCase>	
+      		
+       	<testCase id="362" sdk="PlaceBuilder:getByIds" name="Get Just One Id using getByIds" type="BVT">     
+    	    <parameter name="id">auto</parameter>
+    	    <expected>CenturyLink Field</expected>
+    	</testCase>
+        	
+       	<testCase id="368" sdk="PlaceBuilder:getByIds" name="Place id = ''" type="Functional">     
+    	     <parameter name="id"></parameter>
+    	    <expected>"places": [ ]</expected>
+    	</testCase>    	
+    	
+       	
+       	<testCase id="370" sdk="PlaceBuilder:getByIds" name="2 Exisitent places." type="Functional">     
+    	    <parameter name="id">DOES_NOT-EXIS-T435-aea7-b00202f0e8dc</parameter>
+    	    <parameter name="id">7fcc2e1f-70cf-47a3-9287-ae5c5069e4a6</parameter>
+  	    	<parameter name="id">866f688d-adbc-412e-9169-87ba93864a93</parameter>    	    
+    	
+    	    <expected>"places": [ ]</expected>
+    	</testCase>		
+      	
+	</testSuite>
+	
+	<testSuite name="SDK Place">
+    
+    	<testCase id="380" sdk="SdkPlace:getPlace" name="AroContextual getPlace by Id" type="Smoke">   
+    	    <parameter name="id">auto</parameter>
+    	    <expected>CenturyLink Field</expected>							   
+    	</testCase>    	 	    
+
+    	<testCase id="382" sdk="SdkPlace:getPlace" name="AroContextual getPlace non exisiting Id" type="Smoke">   
+    	    <parameter name="id">Non_Exi-70cf-47a3-9287-ae5c5069e4a6</parameter>
+    	    <expected>WebException 404</expected>							   
+    	</testCase>    	
+    		    
+	    
+    	<testCase id="384" sdk="SdkPlace:getPlaces" name="AroContextual getPlaces by Ids" type="Smoke">   
+    	    <parameter name="id">auto</parameter>
+    	    <expected>CenturyLink Field</expected>									   
+    	</testCase>    	 
+    	
+      	<testCase id="386" sdk="SdkPlace:getPlaces" name="Multiple incorrect place's Ids" type="Funcitonal">   
+    	    <parameter name="id">My_Wrong_ID</parameter>
+  	    	<parameter name="id">My_Second_WrongId</parameter> 
+    	    <expected>"places": [ ]</expected>									   
+    	</testCase>    	   	
+
+	</testSuite>	
+	
+	
+	<testSuite name="ActivityBuilder">
+    
+    	<testCase id="400" sdk="ActivityBuilder:getActivity" name="Get user Activities" type="Smoke">   
+    	    <parameter name="setStartTime">1398042000000</parameter>
+    	    <parameter name="setEndTime">today</parameter>
+    	    <parameter name="limit">50</parameter> 	    
+    	    <expected>CenturyLink Field</expected>		
+    	    <expected>Travel</expected>										   
+    	</testCase>    	   	    	
+
+     	<testCase id="402" sdk="ActivityBuilder:getActivity" name="Get Activity limited to 4 activities" type="Smoke">   
+    	    <parameter name="setStartTime">1398042000000</parameter>
+    	    <parameter name="setEndTime">today</parameter>
+    	    <parameter name="limit">4</parameter> 	    
+    	    <expected>Travel</expected>	
+    	    <expected>Travel from Seattle, WA to SeaTac, WA</expected>											   
+    	</testCase>  
+    	
+    	<testCase id="404" sdk="ActivityBuilder:getActivity" name="Get Activities limite = 0" type="Functional">   
+    	    <parameter name="setStartTime">1398042000000</parameter>
+    	    <parameter name="setEndTime">today</parameter>
+    	    <parameter name="limit">0</parameter> 	    
+    	    <expected> setLimit must be 1 to 100</expected>											   
+    	</testCase>  
+    	
+    	<testCase id="406" sdk="ActivityBuilder:getActivity" name="Get Activities limite = 2500" type="Functional">   
+    	    <parameter name="setStartTime">1398042000000</parameter>
+    	    <parameter name="setEndTime">today</parameter>
+    	    <parameter name="limit">2500</parameter> 	    
+    	    <expected>setLimit must be 1 to 100</expected>											   
+    	</testCase>      			
+    	
+    	<testCase id="410" sdk="ActivityBuilder:getById" name="Get one Activity by Id" type="Smoke">   
+    	    <parameter name="id">auto</parameter>    
+    	    <expected>"id":</expected>
+    	    <expected>"description"</expected>											   
+    	</testCase> 
+    	
+    	
+    	<testCase id="414" sdk="ActivityBuilder:getById" name="Inexistent Activity Id" type="Smoke">   
+    	    <parameter name="id">This_Id_Does_not_exit</parameter>    
+    	    <expected>WebException 404</expected>										   
+    	</testCase>      	
+    	
+    		
+     	<testCase id="420" sdk="ActivityBuilder:getByIds" name="Get multiple Activities using their Ids" type="Smoke">   
+     	    <parameter name="id">auto</parameter>    
+    	    <expected>"id":</expected>
+    	    <expected>"description"</expected>
+    	</testCase> 	
+    		
+     	<testCase id="422" sdk="ActivityBuilder:getByIds" name="Get multiple Activities using their Ids" type="Functional">   
+     	    <parameter name="id">This_Id_Does_not_exit</parameter>    
+     	    <parameter name="id">This_Id_Does_not_exit2</parameter>    
+    	    <expected>{  "activities": [ ] }</expected>	    	   
+    	</testCase> 
+    	
+     		
+	</testSuite>
+		
+	
+	<testSuite name="Activity">   	   	    	
+
+     	<testCase id="450" sdk="Activity:getBaseActivity" name="Get Travel activity by Id" type="Smoke">   
+    	    <parameter name="id">auto</parameter> 
+    	    <expected>"id":</expected>	
+    	     <expected>"description":</expected>	
+    	     <expected>"startTime":</expected>										   
+    	</testCase>  
+    	
+		<testCase id="452" sdk="Activity:getBaseActivity" name="Get Travel activity by Id" type="Smoke">   
+    	    <parameter name="id">This_Id_Does_not_exit</parameter> 
+    	    <expected> WebException 404</expected>											   
+    	</testCase>       	
+  
+    	<testCase id="454" sdk="Activity:getBaseActivities" name="Get Activities by Ids" type="Smoke">   
+      	    <parameter name="id">auto</parameter> 
+    	    <expected>"id":</expected>	
+    	     <expected>"description":</expected>	
+    	     <expected>"startTime":</expected>											   
+    	</testCase>  
+    	 	  	
+ 
+     	<testCase id="456" sdk="Activity:getBaseActivities" name="All non exisiting Ids" type="Functional">   
+    	    <parameter name="id">DOES_NOT_EXIST_2</parameter>
+    	    <parameter name="id">DOES_NOT_EXIST</parameter>   
+    	    <expected>"activities": [ ]</expected>											   
+    	</testCase>        	
+    		
+	</testSuite>	
+	
+	
+	<testSuite name="Traits">
+    
+    	<testCase id="500" sdk="Trait:getTrait" name="Get Trait by Id" type="Smoke">   
+    	    <parameter name="id">9726918b-996d-4da3-9d1d-1a66de16392f</parameter>
+    	    <expected>Retail Robot</expected>
+    	    <expected>Saga has noticed that you work in retail</expected>										   
+    	</testCase>    	   	        	
+    	
+  		<testCase id="502" sdk="Trait:getTraits" name="Get Traits by Ids" type="Smoke">   
+    	    <parameter name="id">5def16d5-9a15-454f-be28-6e98063e0ae1</parameter>
+    	    <parameter name="id">81630209-7ff3-4179-a490-2ec76125ca60</parameter>
+    	    <expected>Visionary</expected>	
+    	    <expected>Saga has detected that you work at an optical shop</expected>										   
+    	</testCase>        	
+    	
+    	<testCase id="504" sdk="Trait:getUserTraits" name="Get User's Traits" type="Smoke">   
+    	    <parameter name="User_id">1398042000000</parameter>
+    	    <expected>"traits":</expected>
+    	    <expected>Sports Fan</expected>
+    	    <expected>Up in the Air</expected>									   
+    	</testCase>  		
+    	
+      	<testCase id="506" sdk="Trait:getTrait" name="Trait Id does not exist" type="Smoke">   
+    	    <parameter name="id">DOES-NOT-EXIST-9d1d-1a66de16392f</parameter>
+    	    <expected> WebException 404</expected>										   
+    	</testCase>     	
+    	
+    		<testCase id="508" sdk="Trait:getTraits" name="Get Traits by Ids. Valid and Nonexistent" type="Functional">   
+    	    <parameter name="id">5def16d5-9a15-454f-be28-6e98063e0ae1</parameter>
+    	    <parameter name="id">DOES-NOT-EXIST-9d1d-1a66de16392f</parameter>
+    	    <parameter name="id">81630209-7ff3-4179-a490-2ec76125ca60</parameter>
+    	    <expected>Visionary</expected>	
+    	    <expected>Saga has detected that you work at an optical shop</expected>										   
+    	</testCase>   		
+  					
+	</testSuite>			
+    
+</test>
